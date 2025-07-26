@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>FollowBack Checker</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>FollowBack Checker</h1>
-  <p>Make sure you're logged into Instagram and on your profile page.</p>
-  <button id="run-checker">Run Checker</button>
-  <div id="status"></div>
+  <h1>🔍 Who Doesn't Follow You Back?</h1>
+  <button id="startBtn">Start Checking</button>
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+    <span id="progress-text">0%</span>
+  </div>
+  <ul id="results"></ul>
+
   <script src="popup.js"></script>
 </body>
 </html>

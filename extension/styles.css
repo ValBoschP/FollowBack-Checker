@@ -1,26 +1,54 @@
 body {
-  font-family: Arial, sans-serif;
-  padding: 10px;
-  background-color: #fff;
-  color: #333;
+  font-family: sans-serif;
   width: 300px;
+  padding: 20px;
 }
 
 button {
   background-color: #3897f0;
   color: white;
   border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 10px;
+  width: 100%;
+  font-size: 16px;
   cursor: pointer;
-  margin-top: 10px;
+  border-radius: 5px;
 }
 
-button:hover {
-  background-color: #2878cc;
+#progress-container {
+  width: 100%;
+  background-color: #eee;
+  margin: 10px 0;
+  height: 20px;
+  border-radius: 10px;
+  position: relative;
 }
 
-#status {
-  margin-top: 10px;
-  font-size: 14px;
+#progress-bar {
+  background-color: #4caf50;
+  width: 0%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+#progress-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  top: 2px;
+  color: #000;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+li {
+  background-color: #f6f6f6;
+  margin: 5px 0;
+  padding: 5px 10px;
+  border-radius: 4px;
 }
