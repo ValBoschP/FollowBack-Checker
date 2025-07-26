@@ -1,3 +1,15 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("startBtn");
+
+  chrome.storage.local.get("checking", (data) => {
+    if (data.checking) {
+      btn.disabled = true;
+      btn.textContent = "Checking...";
+    }
+  });
+});
+
+
 document.getElementById("startBtn").addEventListener("click", () => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.scripting.executeScript({
@@ -42,6 +54,8 @@ document.getElementById("startBtn").addEventListener("click", () => {
   btn.disabled = true;
   btn.textContent = "Checking...";
 
+  chrome.storage.local.set({ checking: true });
+
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.scripting.executeScript({
       target: { tabId: tabs[0].id },
@@ -82,5 +96,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const btn = document.getElementById("startBtn");
     btn.disabled = false;
     btn.textContent = "Start Checking";
+    chrome.storage.local.set({ checking: false });
   }
 });
