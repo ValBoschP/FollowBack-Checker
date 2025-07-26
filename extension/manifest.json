@@ -9,9 +9,6 @@
     "default_popup": "popup.html",
     "default_icon": "icon.png"
   },
-  "background": {
-    "service_worker": "background.js"
-  },
   "content_scripts": [
     {
       "matches": ["https://www.instagram.com/*"],
