@@ -1,92 +1,92 @@
-// background.js - Service Worker para Manifest V3
+// background.js - Service Worker simplificado y funcional
 
-// Configuración de la extensión
+console.log('Background script iniciado');
+
+// Configuración básica de la extensión
 chrome.runtime.onInstalled.addListener((details) => {
-  try {
-    if (details.reason === 'install') {
-      // Primera instalación
-      console.log('Instagram Unfollow Tracker instalado');
-      
-      // Crear alarma de limpieza si no existe
-      chrome.alarms.create('cleanup', { periodInMinutes: 60 });
-      
-      // Opcional: abrir página de bienvenida (comentado para desarrollo)
-      // chrome.tabs.create({
-      //   url: 'https://tu-sitio.com/welcome'
-      // });
-    } else if (details.reason === 'update') {
-      // Actualización
-      console.log('Instagram Unfollow Tracker actualizado');
-    }
-  } catch (error) {
-    console.error('Error en onInstalled:', error);
+  console.log('Extensión instalada/actualizada:', details.reason);
+  
+  // Solo crear alarmas si están disponibles
+  if (chrome.alarms) {
+    chrome.alarms.create('cleanup', { periodInMinutes: 60 });
+    console.log('Alarma de limpieza creada');
   }
 });
 
-// Manejar clics en el icono de la extensión (solo si no hay popup)
-// chrome.action.onClicked.addListener((tab) => {
-//   // Verificar si estamos en Instagram
-//   if (!tab.url.includes('instagram.com')) {
-//     // Si no estamos en Instagram, abrir una nueva pestaña
-//     chrome.tabs.create({
-//       url: 'https://www.instagram.com'
-//     });
-//   }
-// });
-
-// Manejar mensajes entre content script y popup
+// Manejar mensajes de forma segura
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log('Mensaje recibido:', message.type);
+  
   try {
-    // Manejar diferentes tipos de mensajes
     switch (message.type) {
       case 'contentScriptReady':
-        console.log('Content script listo');
+        console.log('Content script está listo');
         sendResponse({ success: true });
         break;
         
       case 'analysisProgress':
+        // Reenviar al popup si es necesario
+        console.log('Progreso del análisis recibido');
+        break;
+        
       case 'analysisComplete':
+        console.log('Análisis completado');
+        break;
+        
       case 'analysisError':
-        // Estos mensajes se manejan directamente entre content script y popup
+        console.log('Error en análisis:', message.data?.error);
         break;
         
       case 'trackUsage':
-        // Estadísticas de uso (opcional)
         console.log('Uso registrado:', message.action);
         sendResponse({ success: true });
         break;
         
       default:
-        console.log('Mensaje no reconocido:', message.type);
+        console.log('Tipo de mensaje desconocido:', message.type);
+        sendResponse({ success: false, error: 'Mensaje no reconocido' });
     }
   } catch (error) {
-    console.error('Error manejando mensaje:', error);
+    console.error('Error procesando mensaje:', error);
     sendResponse({ success: false, error: error.message });
   }
   
-  return true; // Mantener el canal abierto para respuestas asíncronas
+  return true; // Mantener canal abierto
 });
 
-// Limpiar datos antiguos periódicamente
-chrome.alarms.onAlarm.addListener((alarm) => {
-  try {
+// Manejar alarmas solo si están disponibles
+if (chrome.alarms && chrome.alarms.onAlarm) {
+  chrome.alarms.onAlarm.addListener((alarm) => {
+    console.log('Alarma activada:', alarm.name);
+    
     if (alarm.name === 'cleanup') {
-      // Limpiar storage local si es necesario
-      chrome.storage.local.clear().then(() => {
-        console.log('Datos temporales limpiados');
-      }).catch((error) => {
-        console.error('Error limpiando storage:', error);
-      });
+      // Limpiar storage de forma segura
+      if (chrome.storage && chrome.storage.local) {
+        chrome.storage.local.clear()
+          .then(() => console.log('Storage limpiado'))
+          .catch(error => console.error('Error limpiando storage:', error));
+      }
     }
-  } catch (error) {
-    console.error('Error en alarma:', error);
-  }
-});
+  });
+}
 
-// Manejar errores de instalación del service worker
+// Evento de inicio
 chrome.runtime.onStartup.addListener(() => {
-  console.log('Service worker iniciado');
+  console.log('Service worker reiniciado');
 });
 
-// Log para debugging
-console.log('Background script cargado correctamente');
+// background.js - Versión mínima para testing
+
+// Solo lo esencial para que funcione
+chrome.runtime.onInstalled.addListener(() => {
+  console.log('Extensión instalada correctamente');
+});
+
+// Manejar mensajes básicos
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log('Mensaje:', message.type);
+  sendResponse({ success: true });
+  return true;  // Importante: mantener el canal abierto
+});
+
+console.log('Background script configurado correctamente');

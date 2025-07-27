@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en"></html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
 
     <div class="header">
         <h1>FollowBack Checker</h1>
-        <p>Descubre quién no te sigue de vuelta</p>
+        <p>See who doesn't follow you back on Instagram</p>
     </div>
 
     <div class="content">
@@ -18,20 +18,47 @@
         <div class="status-card">
         <div class="status-indicator">
             <div class="status-dot" id="statusDot"></div>
-            <span id="statusText">Verificando Instagram...</span>
+            <span id="statusText">Verifying Instagram...</span>
         </div>
         <p id="statusDescription" style="font-size: 12px; opacity: 0.8;"></p>
         </div>
 
         <!-- Warning -->
         <div class="warning-text">
-        ⚠️ Asegúrate de estar en tu perfil de Instagram. El análisis puede tomar varios minutos dependiendo de cuántas personas sigues.
+        ⚠️ Make sure you are on your Instagram profile. The analysis may take several minutes depending on how many people you follow.
         </div>
 
         <!-- Main Button -->
         <button class="btn btn-primary" id="startAnalysis">
-            Iniciar Análisis
+            Start Analysis
         </button>
+
+        <!-- Resume Button -->
+        <button class="btn btn-secondary" id="resumeAnalysis" style="display: none;">
+            ▶ Resume Analysis
+        </button>
+
+        <!-- Progress -->
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">0%</div>
+        </div>
+
+        <!-- Previous Results -->
+        <div class="status-card" id="previousResults" style="display: none;">
+            <h4 style="margin-bottom: 10px; font-size: 14px;">📋 Previous Analysis</h4>
+            <div id="previousResultsContent"></div>
+            <div style="display: flex; gap: 8px; margin-top: 10px;">
+                <button class="btn btn-secondary" id="loadPreviousBtn" style="flex: 1; padding: 6px; font-size: 12px;">
+                    View Results
+                </button>
+                <button class="btn btn-secondary" id="exportPreviousBtn" style="flex: 1; padding: 6px; font-size: 12px;">
+                    Export
+                </button>
+            </div>
+        </div>
 
         <!-- Progress -->
         <div class="progress-container" id="progressContainer">
@@ -44,23 +71,29 @@
         <!-- Results -->
         <div class="results-container" id="resultsContainer">
             <div class="results-header">
-                <span class="results-count" id="resultsCount">0 usuarios no te siguen</span>
-                <button class="btn btn-secondary" id="exportBtn" style="width: auto; padding: 6px 12px; font-size: 12px;">
-                    📄 Exportar
-                </button>
+                <span class="results-count" id="resultsCount">0 users don't follow you</span>
+                <div style="display: flex; gap: 4px;">
+                    <select id="exportFormat" style="padding: 4px; border-radius: 4px; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); font-size: 11px;">
+                        <option value="txt">TXT</option>
+                        <option value="json">JSON</option>
+                    </select>
+                    <button class="btn btn-secondary" id="exportBtn" style="width: auto; padding: 6px 12px; font-size: 12px;">
+                        Export
+                    </button>
+                </div>
             </div>
             <div class="user-list" id="userList"></div>
         </div>
 
         <!-- Stop Button -->
         <button class="btn btn-secondary" id="stopAnalysis" style="display: none;">
-            ⏹️ Detener Análisis
+            ⏹️ Stop Analysis
         </button>
     </div>
 
     <div class="footer">
-        <a href="#" id="privacyLink">Política de Privacidad</a> •
-        <a href="#" id="supportLink">Soporte</a>
+        <a href="#" id="privacyLink">Privacy Policy</a> •
+        <a href="#" id="supportLink">Support</a>
     </div>
 
     <script src="popup.js"></script>
