@@ -1,21 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>FollowBack Checker</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Unfollow Tracker</title>
 </head>
 <body>
-    <div class="container">
-        <h1>FollowBack Checker</h1>
-        <button id="startBtn">Start Checking</button>
-        <div class="progress-container">
-            <div id="progress-bar" class="progress-bar"></div>
-        </div>
-        <div id="progress-text">Ready</div>
-        <ul id="results-list"></ul>
+  <div class="header">
+    <h1>📱 Unfollow Tracker</h1>
+    <p>Descubre quién no te sigue de vuelta</p>
+  </div>
+
+  <div class="content">
+    <!-- Status Card -->
+    <div class="status-card">
+      <div class="status-indicator">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Verificando Instagram...</span>
+      </div>
+      <p id="statusDescription" style="font-size: 12px; opacity: 0.8;"></p>
     </div>
-    <script src="popup.js"></script>
+
+    <!-- Warning -->
+    <div class="warning-text">
+      ⚠️ Asegúrate de estar en tu perfil de Instagram. El análisis puede tomar varios minutos dependiendo de cuántas personas sigues.
+    </div>
+
+    <!-- Main Button -->
+    <button class="btn btn-primary" id="startAnalysis">
+      🔍 Iniciar Análisis
+    </button>
+
+    <!-- Progress -->
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-text" id="progressText">0%</div>
+    </div>
+
+    <!-- Results -->
+    <div class="results-container" id="resultsContainer">
+      <div class="results-header">
+        <span class="results-count" id="resultsCount">0 usuarios no te siguen</span>
+        <button class="btn btn-secondary" id="exportBtn" style="width: auto; padding: 6px 12px; font-size: 12px;">
+          📄 Exportar
+        </button>
+      </div>
+      <div class="user-list" id="userList"></div>
+    </div>
+
+    <!-- Stop Button -->
+    <button class="btn btn-secondary" id="stopAnalysis" style="display: none;">
+      ⏹️ Detener Análisis
+    </button>
+  </div>
+
+  <div class="footer">
+    <a href="#" id="privacyLink">Política de Privacidad</a> •
+    <a href="#" id="supportLink">Soporte</a>
+  </div>
+
+  <script src="popup.js"></script>
 </body>
 </html>
