@@ -6,7 +6,7 @@
   let isAnalysisRunning = false;
   let shouldStop = false;
 
-  // Funciones utilitarias (adaptadas de tu script original)
+  // Funciones utilitarias
   function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
