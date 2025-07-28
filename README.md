@@ -110,10 +110,10 @@
 Here’s how FollowBack Checker works in action:
 
 ### 1. Extension Launched with Last Analysis
-![Step 1 – Launch](https://github.com/ValBoschP/FollowBack-Checker/assets/FollowBack-Checker-Demo-2.png)
+![Step 1 – Launch](./assets/FollowBack-Checker-Demo-2.png)
 
 ### 2. Results, see who doesn’t follow you back  
-![Step 2 – Results](https://github.com/ValBoschP/FollowBack-Checker/assets/FollowBack-Checker-Demo.png)
+![Step 2 – Results](./assets/FollowBack-Checker-Demo.png)
 
 ---
 
