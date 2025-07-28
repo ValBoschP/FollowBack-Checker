@@ -178,3 +178,86 @@ body {
   margin-bottom: 15px;
   line-height: 1.4;
 }
+
+/* Buy Me a Coffee Button Styles */
+.coffee-button-container {
+  margin: 15px 0 10px 0;
+  text-align: center;
+}
+
+.coffee-support-text {
+  font-size: 10px;
+  color: #ffffff;
+  margin-bottom: 6px;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+.coffee-btn {
+  background: linear-gradient(135deg, #FFDD00 0%, #FFC107 100%);
+  border: none;
+  border-radius: 20px;
+  color: #000;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+  text-transform: none;
+  font-family: inherit;
+  outline: none;
+  text-decoration: none;
+}
+
+.coffee-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
+  background: linear-gradient(135deg, #FFE135 0%, #FFD54F 100%);
+}
+
+.coffee-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(255, 193, 7, 0.3);
+}
+
+.coffee-btn:focus {
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3), 0 0 0 2px rgba(255, 193, 7, 0.2);
+}
+
+/* Variantes de colores alternativas (comentadas) */
+/*
+.coffee-btn.red-variant {
+  background: linear-gradient(135deg, #FF5F5F 0%, #FF3B3B 100%);
+  box-shadow: 0 2px 8px rgba(255, 95, 95, 0.3);
+  color: #fff;
+}
+
+.coffee-btn.red-variant:hover {
+  background: linear-gradient(135deg, #FF7B7B 0%, #FF5757 100%);
+  box-shadow: 0 4px 12px rgba(255, 95, 95, 0.4);
+}
+
+.coffee-btn.green-variant {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+  color: #fff;
+}
+
+.coffee-btn.green-variant:hover {
+  background: linear-gradient(135deg, #66BB6A 0%, #5CB85C 100%);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+*/
+
+/* Responsive adjustments */
+@media (max-width: 320px) {
+  .coffee-btn {
+    font-size: 10px;
+    padding: 6px 12px;
+    gap: 4px;
+  }
+}

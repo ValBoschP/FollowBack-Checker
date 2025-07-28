@@ -383,28 +383,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (privacyLink) {
     privacyLink.addEventListener('click', (e) => {
       e.preventDefault();
-      chrome.tabs.create({ url: 'https://tu-sitio.com/privacy' });
+      chrome.tabs.create({ url: 'https://github.com/ValBoschP/FollowBack-Checker/blob/main/privacy-policy.md' });
     });
   }
 
-  const supportLink = document.getElementById('supportLink');
-  if (supportLink) {
-    supportLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      chrome.tabs.create({ url: 'https://tu-sitio.com/support' });
+  const coffeeSupportLink = document.getElementById('coffeeBtn');
+  if (coffeeSupportLink) {
+    coffeeSupportLink.addEventListener('click', () => {
+      chrome.tabs.create({ url: 'https://buymeacoffee.com/ValBoschP' });
     });
   }
-
-  // Footer links
-  document.getElementById('privacyLink').addEventListener('click', (e) => {
-    e.preventDefault();
-    chrome.tabs.create({ url: 'https://tu-sitio.com/privacy' });
-  });
-
-  document.getElementById('supportLink').addEventListener('click', (e) => {
-    e.preventDefault();
-    chrome.tabs.create({ url: 'https://tu-sitio.com/support' });
-  });
 
   // Check initial status and load data
   await loadPreviousAnalysis();
