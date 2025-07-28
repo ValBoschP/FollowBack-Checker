@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
   // DOM Elements
   const startBtn = document.getElementById('startAnalysis');
-  const resumeBtn = document.getElementById('resumeAnalysis');
+  // const resumeBtn = document.getElementById('resumeAnalysis');
   const stopBtn = document.getElementById('stopAnalysis');
   const exportBtn = document.getElementById('exportBtn');
   const exportFormat = document.getElementById('exportFormat');
@@ -36,13 +36,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         previousAnalysisData = response.previousAnalysis;
         canResume = response.canResume;
         
-        // Show resume button if there is a pending analysis
+        // Auto-resume if there is a pending analysis
         if (canResume) {
-          resumeBtn.style.display = 'block';
-          updateStatus('warning', 'Pending analysis', 'You can continue where you left off');
+          isAnalyzing = true;
+          startBtn.style.display = 'none';
+          stopBtn.style.display = 'block';
+          progressContainer.style.display = 'block';
+          previousResults.style.display = 'none';
+          updateStatus('warning', 'Loading analysis...', 'Getting current progress');
+          
+          // Show loading state in progress bar
+          progressFill.style.width = '0%';
+          progressText.textContent = 'Loading current progress...';
+          // Start the actual resume process
+          startAnalysis(true);
+          setTimeout(() => getCurrentProgress(), 1000);
+          return; // Exit early to avoid showing other UI elements
         }
         
-        // Show last analysis if exists
+        // Show last analysis if exists and no analysis is running
         if (previousAnalysisData.length > 0) {
           const lastAnalysis = previousAnalysisData[0];
           previousResults.style.display = 'block';
@@ -70,6 +82,28 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.error('Error loading previous analysis:', error);
     }
   }
+  // Get current analysis progress
+  async function getCurrentProgress() {
+    try {
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      const response = await chrome.tabs.sendMessage(tab.id, { action: 'getCurrentProgress' });
+      
+      if (response.success && response.progress) {
+        updateProgress(response.progress);
+        updateStatus('warning', 'Analysis in progress...', 'This process may take several minutes');
+      } else {
+        // if we cant get progress, show a generic loading state
+        progressFill.style.width = '0%';
+        progressText.textContent = 'Reconnecting to analysis...';
+        updateStatus('warning', 'Reconnecting...', 'Please wait while we get the current progress');
+      }
+    } catch (error) {
+      console.error('Error getting current progress:', error);
+      progressFill.style.width = '0%';
+      progressText.textContent = 'Reconnecting to analysis...';
+      updateStatus('warning', 'Reconnecting...', 'Please wait a moment');
+    }
+  }
   // Check initial status
   async function checkStatus() {
     try {
@@ -78,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (!tab.url.includes('instagram.com')) {
         updateStatus('error', "You're not on Instagram", 'Go to www.instagram.com to use this extension');
         startBtn.disabled = true;
-        resumeBtn.disabled = true;
+        // resumeBtn.disabled = true;
         return false;
       }
 
@@ -87,28 +121,28 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (!response.isInstagram) {
         updateStatus('error', "You're not on Instagram", 'Go to www.instagram.com to use this extension');
         startBtn.disabled = true;
-        resumeBtn.disabled = true;
+        //resumeBtn.disabled = true;
         return false;
       }
 
       if (!response.isLoggedIn) {
         updateStatus('warning', "You're not logged in", 'Please log in to Instagram first');
         startBtn.disabled = true;
-        resumeBtn.disabled = true;
+        //resumeBtn.disabled = true;
         return false;
       }
 
-      if (!canResume) {
+      if (!canResume && !isAnalyzing) {
         updateStatus('success', 'Ready to analyze', 'Everything is set up correctly');
       }
       startBtn.disabled = false;
-      resumeBtn.disabled = false;
+      //resumeBtn.disabled = false;
       return true;
 
     } catch (error) {
       updateStatus('error', 'Connection error', 'Reload the Instagram page and try again');
       startBtn.disabled = true;
-      resumeBtn.disabled = true;
+      //resumeBtn.disabled = true;
       return false;
     }
   }
@@ -122,13 +156,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Update progress
   function updateProgress(data) {
-    progressFill.style.width = `${data.progress}%`;
-    progressText.textContent = `${data.progress}% - ${data.processed}/${data.total} processed`;
-    
-    // Update real-time results
-    if (data.users && data.users.length > 0) {
-      currentResults = data.users;
-      updateResults(data.users);
+    if (data.progress !== undefined && data.processed !== undefined && data.total !== undefined) {
+      progressFill.style.width = `${data.progress}%`;
+      progressText.textContent = `${data.progress}% - ${data.processed}/${data.total} processed`;
+      if (data.users && data.users.length > 0) {
+        currentResults = data.users;
+        updateResults(data.users);
+      }
+    } else {
+      progressFill.style.width = '0%';
+      progressText.textContent = 'Loading progress data...';
     }
   }
 
@@ -176,7 +213,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (response.success) {
         isAnalyzing = true;
         startBtn.style.display = 'none';
-        resumeBtn.style.display = 'none';
+        // resumeBtn.style.display = 'none';
         stopBtn.style.display = 'block';
         progressContainer.style.display = 'block';
         previousResults.style.display = 'none';
@@ -199,7 +236,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Event listeners for buttons
   startBtn.addEventListener('click', () => startAnalysis(false));
-  resumeBtn.addEventListener('click', () => startAnalysis(true));
+  // resumeBtn.addEventListener('click', () => startAnalysis(true));
 
   // Stop analysis
   stopBtn.addEventListener('click', async () => {
@@ -209,7 +246,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       
       isAnalyzing = false;
       startBtn.style.display = 'block';
-      resumeBtn.style.display = canResume ? 'block' : 'none';
+      // resumeBtn.style.display = canResume ? 'block' : 'none';
       stopBtn.style.display = 'none';
       updateStatus('warning', 'Analysis stopped', 'You can continue later');
     } catch (error) {
@@ -308,6 +345,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Listen for messages from content script
   chrome.runtime.onMessage.addListener((message) => {
     switch (message.type) {
+
       case 'analysisProgress':
         updateProgress(message.data);
         break;
@@ -315,7 +353,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       case 'analysisComplete':
         isAnalyzing = false;
         startBtn.style.display = 'block';
-        resumeBtn.style.display = 'none';
+        // resumeBtn.style.display = 'none';
         stopBtn.style.display = 'none';
         canResume = false;
         
@@ -334,12 +372,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       case 'analysisError':
         isAnalyzing = false;
         startBtn.style.display = 'block';
-        resumeBtn.style.display = canResume ? 'block' : 'none';
+        // resumeBtn.style.display = canResume ? 'block' : 'none';
         stopBtn.style.display = 'none';
         updateStatus('error', 'Error', message.data.error);
         break;
     }
   });
+
   const privacyLink = document.getElementById('privacyLink');
   if (privacyLink) {
     privacyLink.addEventListener('click', (e) => {
@@ -368,6 +407,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Check initial status and load data
-  await checkStatus();
   await loadPreviousAnalysis();
+  await checkStatus();
 });
