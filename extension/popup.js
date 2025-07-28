@@ -147,8 +147,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       userItem.className = 'user-item';
       
       userItem.innerHTML = `
-        <img class="user-avatar" src="${user.profile_pic_url || 'icons/icon32.png'}" 
-             onerror="this.src='icons/icon32.png'" alt="${user.username}">
         <div class="user-info">
           <div class="username">@${user.username} ${user.is_verified ? '✓' : ''}</div>
           <div class="full-name">${user.full_name || ''}</div>
@@ -250,7 +248,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (response.success) {
         // Show visual confirmation
         const originalText = exportBtn.textContent;
-        exportBtn.textContent = '✅ Exported';
+        exportBtn.textContent = 'Exported';
         setTimeout(() => {
           exportBtn.textContent = originalText;
         }, 2000);
@@ -292,7 +290,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       
       if (response.success) {
         const originalText = exportPreviousBtn.textContent;
-        exportPreviousBtn.textContent = '✅ Exported';
+        exportPreviousBtn.textContent = 'Exported';
         setTimeout(() => {
           exportPreviousBtn.textContent = originalText;
         }, 2000);
@@ -303,27 +301,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Clear history
-  document.getElementById('clearHistoryLink').addEventListener('click', async (e) => {
-    e.preventDefault();
-    
-    if (confirm('Are you sure you want to clear all analysis history?')) {
-      try {
-        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        const response = await chrome.tabs.sendMessage(tab.id, { action: 'clearHistory' });
-        
-        if (response.success) {
-          previousAnalysisData = [];
-          canResume = false;
-          previousResults.style.display = 'none';
-          resumeBtn.style.display = 'none';
-          
-          updateStatus('success', 'History cleared', 'All previous data has been deleted');
+  const clearLink = document.getElementById('clearHistoryLink');
+  if (clearLink) {
+    clearLink.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if (confirm('Are you sure you want to clear all analysis history?')) {
+        try {
+          const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+          // ...
+        } catch (error) {
+          console.error('Error clearing history:', error);
         }
-      } catch (error) {
-        alert('Error clearing history');
       }
-    }
-  });
+    });
+  }
+
 
   // Listen for messages from content script
   chrome.runtime.onMessage.addListener((message) => {
@@ -360,6 +352,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         break;
     }
   });
+  const privacyLink = document.getElementById('privacyLink');
+  if (privacyLink) {
+    privacyLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      chrome.tabs.create({ url: 'https://tu-sitio.com/privacy' });
+    });
+  }
+
+  const supportLink = document.getElementById('supportLink');
+  if (supportLink) {
+    supportLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      chrome.tabs.create({ url: 'https://tu-sitio.com/support' });
+    });
+  }
 
   // Footer links
   document.getElementById('privacyLink').addEventListener('click', (e) => {
