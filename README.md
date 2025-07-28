@@ -1,13 +1,13 @@
 # FollowBack Checker – Instagram Unfollowers Extension
 
-> Find out who doesn’t follow you back on Instagram. No apps. No login. No passwords.
+> Find out who doesn't follow you back on Instagram. No apps. No login. No passwords.
 
 ---
 
 ## What is it?
 
 **FollowBack Checker** is an extension that helps you:
-- Identify which users you follow that don’t follow you back.
+- Identify which users you follow that don't follow you back.
 - Run the analysis directly from your Instagram profile.
 - Export the list as a `.json` or `.txt` file — all from your browser.
 
@@ -23,15 +23,15 @@
 
 ---
 
-## Manual Installation (Developer Mode)
+## Installation
 
-> Until it’s published in the Chrome Web Store, you can install it like this:
+<details>
+<summary><strong>🌐 Chrome / Chromium-based browsers (Edge, Opera, Brave, etc.)</strong></summary>
 
 ### Option 1: Download ZIP
 1. [**Download the ZIP file**](https://github.com/ValBoschP/FollowBack-Checker/archive/refs/heads/main.zip) from GitHub.
-
 2. Extract the ZIP file to a folder on your computer.
-3. Open Chrome and go to `chrome://extensions`.
+3. Open Chrome and go to `chrome://extensions` (or `edge://extensions` for Edge, `opera://extensions` for Opera, etc.).
 4. Enable **Developer mode** in the top right corner.
 5. Click on **Load unpacked** and select the `extension/` folder inside the extracted folder.
 6. Go to [instagram.com](https://www.instagram.com), log in, and visit your profile.
@@ -42,16 +42,84 @@
    ```bash
    git clone https://github.com/ValBoschP/FollowBack-Checker.git
    ```
-2. Open Chrome and go to `chrome://extensions`.
-
+2. Open Chrome and go to `chrome://extensions` (or the equivalent for your Chromium-based browser).
 3. Enable **Developer mode** in the top right corner.
 4. Click on **Load unpacked** and select the `extension/` folder inside this repo.
 5. Go to [instagram.com](https://www.instagram.com), log in, and visit your profile.
 6. Click on the extension icon in the toolbar and **run** the checker.
 
+</details>
+
+<details>
+<summary><strong>🦊 Firefox</strong></summary>
+
+### Option 1: Download ZIP
+1. [**Download the ZIP file**](https://github.com/ValBoschP/FollowBack-Checker/archive/refs/heads/main.zip) from GitHub.
+2. Extract the ZIP file to a folder on your computer.
+3. Open Firefox and go to `about:debugging`.
+4. Click on **This Firefox** in the left sidebar.
+5. Click on **Load Temporary Add-on**.
+6. Navigate to the `extension/` folder and select the `manifest.json` file.
+7. Go to [instagram.com](https://www.instagram.com), log in, and visit your profile.
+8. Click on the extension icon in the toolbar and **run** the checker.
+
+### Option 2: Clone the Repository with Git
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/ValBoschP/FollowBack-Checker.git
+   ```
+2. Open Firefox and go to `about:debugging`.
+3. Click on **This Firefox** in the left sidebar.
+4. Click on **Load Temporary Add-on**.
+5. Navigate to the `extension/` folder inside the cloned repo and select the `manifest.json` file.
+6. Go to [instagram.com](https://www.instagram.com), log in, and visit your profile.
+7. Click on the extension icon in the toolbar and **run** the checker.
+
+</details>
+
+<details>
+<summary><strong>🔷 Microsoft Edge</strong></summary>
+
+### Option 1: Download ZIP
+1. [**Download the ZIP file**](https://github.com/ValBoschP/FollowBack-Checker/archive/refs/heads/main.zip) from GitHub.
+2. Extract the ZIP file to a folder on your computer.
+3. Open Edge and go to `edge://extensions`.
+4. Enable **Developer mode** in the left sidebar.
+5. Click on **Load unpacked** and select the `extension/` folder inside the extracted folder.
+6. Go to [instagram.com](https://www.instagram.com), log in, and visit your profile.
+7. Click on the extension icon in the toolbar and **run** the checker.
+
+### Option 2: Clone the Repository with Git
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/ValBoschP/FollowBack-Checker.git
+   ```
+2. Open Edge and go to `edge://extensions`.
+3. Enable **Developer mode** in the left sidebar.
+4. Click on **Load unpacked** and select the `extension/` folder inside this repo.
+5. Go to [instagram.com](https://www.instagram.com), log in, and visit your profile.
+6. Click on the extension icon in the toolbar and **run** the checker.
+
+</details>
+
+<details>
+<summary><strong>🍎 Safari</strong></summary>
+
+> **Note:** Safari support is limited. For best experience, use Chrome or Firefox.
+
+1. [**Download the ZIP file**](https://github.com/ValBoschP/FollowBack-Checker/archive/refs/heads/main.zip) from GitHub.
+2. Extract the ZIP file to a folder on your computer.
+3. Open Safari and go to **Safari > Preferences > Advanced**.
+4. Check **Show Develop menu in menu bar**.
+5. Go to **Develop > Allow Unsigned Extensions**.
+6. In Safari preferences, go to **Extensions** tab.
+7. Check **Developer Extensions** if available.
+
+</details>
+
 ---
 
-## Demo
+## 💿 Demo
 
 📽️ [Coming Soon] — A short walkthrough video or screenshots will be added here.  
 Stay tuned!
@@ -71,7 +139,7 @@ It does **not**:
 
 ---
 
-## Support
+## 💜 Support
 
 If you find this project useful, you can:
 
