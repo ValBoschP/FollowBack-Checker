@@ -102,27 +102,18 @@
 
 </details>
 
-<details>
-<summary><strong>🍎 Safari</strong></summary>
-
-> **Note:** Safari support is limited. For best experience, use Chrome or Firefox.
-
-1. [**Download the ZIP file**](https://github.com/ValBoschP/FollowBack-Checker/archive/refs/heads/main.zip) from GitHub.
-2. Extract the ZIP file to a folder on your computer.
-3. Open Safari and go to **Safari > Preferences > Advanced**.
-4. Check **Show Develop menu in menu bar**.
-5. Go to **Develop > Allow Unsigned Extensions**.
-6. In Safari preferences, go to **Extensions** tab.
-7. Check **Developer Extensions** if available.
-
-</details>
 
 ---
 
 ## 💿 Demo
 
-📽️ [Coming Soon] — A short walkthrough video or screenshots will be added here.  
-Stay tuned!
+Here’s how FollowBack Checker works in action:
+
+### 1. Extension Launched with Last Analysis
+![Step 1 – Launch](https://github.com/ValBoschP/FollowBack-Checker/assets/FollowBack-Checker-Demo-2.png)
+
+### 2. Results, see who doesn’t follow you back  
+![Step 2 – Results](https://github.com/ValBoschP/FollowBack-Checker/assets/FollowBack-Checker-Demo.png)
 
 ---
 
