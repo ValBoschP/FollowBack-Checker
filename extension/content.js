@@ -301,15 +301,15 @@
             const followedPeople = state.followedPeople || 1; // evitar división por cero
             const getUnfollowCounter = state.getUnfollowCounter || 0;
             const filteredList = state.filteredList || [];
-            
+
             const progress = Math.min(100, Math.round((state.getUnfollowCounter / state.followedPeople) * 100));
             sendResponse({
               success: true,
               progress: progress,
-              processed: state.getUnfollowCounter,
-              total: state.followedPeople,
-              unfollowers: state.filteredList.length,
-              users: state.filteredList
+              processed: getUnfollowCounter,
+              total: followedPeople,
+              unfollowers: filteredList.length,
+              users: filteredList
             });
           } else {
             sendResponse({ success: false, error: 'There is no ongoing analysis' });
