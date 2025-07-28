@@ -139,10 +139,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Clear previous list
     userList.innerHTML = '';
     
-    // Show up to 50 users to avoid slowness
-    const displayUsers = users.slice(0, 50);
-    
-    displayUsers.forEach(user => {
+    // Show all users without limit
+    users.forEach(user => {
       const userItem = document.createElement('div');
       userItem.className = 'user-item';
       
@@ -162,16 +160,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       
       userList.appendChild(userItem);
     });
-
-    // Show notice if there are more users
-    if (users.length > 50) {
-      const moreItem = document.createElement('div');
-      moreItem.className = 'user-item';
-      moreItem.style.textAlign = 'center';
-      moreItem.style.opacity = '0.7';
-      moreItem.innerHTML = `<div style="flex: 1;">... and ${users.length - 50} more users</div>`;
-      userList.appendChild(moreItem);
-    }
 
     resultsContainer.style.display = 'block';
   }

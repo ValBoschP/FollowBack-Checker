@@ -296,7 +296,7 @@
 
       case 'startAnalysis':
         if (isAnalysisRunning) {
-            sendResponse({ success: false, error: 'Analysis is already in progress' });
+            sendResponse({ success: false, error: 'Analysis is already in progress, please wait.' });
           return;
         }
 
